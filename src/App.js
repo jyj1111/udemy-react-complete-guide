@@ -1,8 +1,8 @@
-import Expenses from "./components/Expenses.js";
+import Expenses from "./components/Expenses/Expenses.js";
 import NewExpense from "./components/NewExpense.js";
 import React, { useEffect, useState } from "react";
 
-function App() {
+const App = () => {
   const expenses = [
     {
       id: "e1",
@@ -31,6 +31,6 @@ function App() {
       <Expenses expenses={expenses} />
     </div>
   );
-}
+};
 
 export default App;
