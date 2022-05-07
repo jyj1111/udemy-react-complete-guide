@@ -6,7 +6,7 @@ import Layout from "./components/Layout/Layout";
 import Products from "./components/Shop/Products";
 import Notification from "./components/UI/Notification";
 import { sendCartData, fetchCartData } from "./store/cart-actions";
-
+import Auth from "./components/UI/Auth";
 let isInitial = true;
 
 function App() {
@@ -14,6 +14,7 @@ function App() {
   const showCart = useSelector((state) => state.ui.cartIsVisible);
   const cart = useSelector((state) => state.cart);
   const notification = useSelector((state) => state.ui.notification);
+  const isAuth = useSelector((state) => state.auth.isAuthenticated);
 
   useEffect(() => {
     dispatch(fetchCartData());
@@ -32,17 +33,20 @@ function App() {
 
   return (
     <Fragment>
-      {notification && (
+      {!isAuth && <Auth />}
+      {isAuth && notification && (
         <Notification
           status={notification.status}
           title={notification.title}
           message={notification.message}
         />
       )}
-      <Layout>
-        {showCart && <Cart />}
-        <Products />
-      </Layout>
+      {isAuth && (
+        <Layout>
+          {showCart && <Cart />}
+          {<Products />}
+        </Layout>
+      )}
     </Fragment>
   );
 }
